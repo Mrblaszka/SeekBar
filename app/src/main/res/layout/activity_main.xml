@@ -85,8 +85,8 @@
 
     <ImageView
         android:id="@+id/imv2"
-        android:layout_width="232dp"
-        android:layout_height="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.167"
@@ -120,7 +120,7 @@
         app:srcCompat="@drawable/porsche" />
 
     <ImageView
-        android:id="@+id/imv"
+        android:id="@+id/imv3"
         android:layout_width="215dp"
         android:layout_height="154dp"
         app:layout_constraintBottom_toBottomOf="parent"
