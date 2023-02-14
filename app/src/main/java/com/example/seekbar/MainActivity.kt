@@ -14,20 +14,24 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-     public fun scaleImage(img: ImageView, scale: Int) {
+    fun suma_poziomu(): Int{
+        val obraz1_poziom = findViewById<SeekBar>(R.id.poziom1)
+        val obraz2_poziom = findViewById<SeekBar>(R.id.poziom2)
+        val obraz3_poziom = findViewById<SeekBar>(R.id.poziom3)
+        val suma = obraz1_poziom.progress + obraz2_poziom.progress + obraz3_poziom.progress
+        return suma
+    }
 
-        val WIDTH_SCALE_RATIO = 10;
-        val HEIGHT_SCALE_RATIO = 10;
-        var bitmap = (img.drawable as BitmapDrawable).bitmap
-        var width = bitmap.width.toFloat()
-        var height = bitmap.height.toFloat()
-        width += scale * WIDTH_SCALE_RATIO
-        height += scale * HEIGHT_SCALE_RATIO
-        bitmap = Bitmap.createScaledBitmap(
-            bitmap, width.toInt(), height.toInt(),
-            true
-        )
-        img.setImageBitmap(bitmap)
+    fun suma_pionu(): Int{
+        val obraz1_pion = findViewById<SeekBar>(R.id.pion1)
+        val obraz2_pion = findViewById<SeekBar>(R.id.pion2)
+        val obraz3_pion = findViewById<SeekBar>(R.id.pion3)
+        val suma = obraz1_pion.progress + obraz2_pion.progress + obraz3_pion.progress
+        return suma
+    }
+
+    fun changed(progressBar: ProgressBar, suma: Int){
+        progressBar.progress = suma/3
     }
 
     @SuppressLint("MissingInflatedId")
@@ -102,27 +106,29 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
+        obraz3_pion.setOnSeekBarChangeListener(object:OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar,progres: Int, fromUser: Boolean) {
+                val scale = progres/100f
+                obraz3.scaleY = scale
+                changed(progress_pion, suma_pionu())
+            }
 
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
+
+        obraz3_poziom.setOnSeekBarChangeListener(object:OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar,progres: Int, fromUser: Boolean) {
+                val scale = progres/100f
+                obraz3.scaleX = scale
+                changed(progress_poziom, suma_poziomu())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
     }
-        fun suma_poziomu(): Int{
-            val obraz1_poziom = findViewById<SeekBar>(R.id.poziom1)
-            val obraz2_poziom = findViewById<SeekBar>(R.id.poziom2)
-            val obraz3_poziom = findViewById<SeekBar>(R.id.poziom3)
-            val suma = obraz1_poziom.progress + obraz2_poziom.progress + obraz3_poziom.progress
-            return suma
-        }
 
-        fun suma_pionu(): Int{
-            val obraz1_pion = findViewById<SeekBar>(R.id.pion1)
-            val obraz2_pion = findViewById<SeekBar>(R.id.pion2)
-            val obraz3_pion = findViewById<SeekBar>(R.id.pion3)
-            val suma = obraz1_pion.progress + obraz2_pion.progress + obraz3_pion.progress
-            return suma
-        }
-
-        fun changed(progressBar: ProgressBar, suma: Int){
-            progressBar.progress = suma/3
-        }
 }
 
 
